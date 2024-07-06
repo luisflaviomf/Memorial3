@@ -10,15 +10,15 @@
     @foreach(var memorial in Model)
     {
         <div class="col-3">
-            <div class="card">
-                <a asp-controller="Store" asp-action="Details" asp-route-id="@memorial.Id">
-                    <img src="@memorial.MemorialPictureURL" class="card-img-top"/>
+            <div class="card my-2 store-card">
+                <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@memorial.Id">
+                    <img src="@memorial.MemorialPictureURL" class="card-img-top card-img-custom"/>
                     <div class="card-body" style="height: 6em;">
                         <h5 class="mb-3">@memorial.Name</h5>
                     </div>
                     <div class="card-body">
                         <span class="card-text">@memorial.DataFalecimento</span>
-                        <a asp-controller="" asp-action="" asp-route-id="@memorial.Id" class="btn btn-primary float-right"><i class="fa-solid fa-info"></i></a>
+                        <a asp-controller="" asp-action="" asp-route-id="@memorial.Id" class="btn btn-primary float-right store-btn"><i class="fa-solid fa-info"></i></a>
                     </div>
                 </a>
             </div>
