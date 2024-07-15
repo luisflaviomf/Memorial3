@@ -15,6 +15,6 @@ namespace Memorial3.Data
         }
 
         public DbSet<Memorial> Memorial { get; set; }
-        public object Memorials { get; internal set; }
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }

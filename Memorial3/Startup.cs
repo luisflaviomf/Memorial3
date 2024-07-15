@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Memorial3.Data;
+using Memorial3.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Memorial3
 {
@@ -29,8 +31,19 @@ namespace Memorial3
 
             services.AddDbContext<Memorial3Context>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Memorial3Context")));
-        }
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<Cart>(sp => Cart.GetCart(sp));
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                //options.IdleTimeout = TimeSpan.FromSeconds(10);
+            });
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -50,6 +63,8 @@ namespace Memorial3
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

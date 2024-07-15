@@ -4,43 +4,22 @@ using Memorial3.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Memorial3.Migrations
 {
     [DbContext(typeof(Memorial3Context))]
-    partial class Memorial3ContextModelSnapshot : ModelSnapshot
+    [Migration("20240713141141_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Memorial3.Models.CartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CartId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("MemorialId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemorialId");
-
-                    b.ToTable("CartItems");
-                });
 
             modelBuilder.Entity("Memorial3.Models.Memorial", b =>
                 {
@@ -81,15 +60,6 @@ namespace Memorial3.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Memorial");
-                });
-
-            modelBuilder.Entity("Memorial3.Models.CartItem", b =>
-                {
-                    b.HasOne("Memorial3.Models.Memorial", "Memorial")
-                        .WithMany()
-                        .HasForeignKey("MemorialId");
-
-                    b.Navigation("Memorial");
                 });
 #pragma warning restore 612, 618
         }
