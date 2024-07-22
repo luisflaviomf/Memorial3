@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Memorial3.Data;
 using Memorial3.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace Memorial3
 {
@@ -33,7 +34,7 @@ namespace Memorial3
             services.AddDbContext<Memorial3Context>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Memorial3Context")));
 
-            services.AddDefaultIdentity<DefaultUser>().AddEntityFrameworkStores<Memorial3Context>();
+            services.AddDefaultIdentity<DefaultUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<Memorial3Context>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<Cart>(sp => Cart.GetCart(sp));

@@ -2,6 +2,8 @@
 using Memorial3.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Memorial3.Controllers
 {
