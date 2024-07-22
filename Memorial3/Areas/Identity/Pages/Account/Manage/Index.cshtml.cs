@@ -33,8 +33,31 @@ namespace Memorial3.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Primeiro Nome")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Ultimo Nome")]
+            public string LastName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Pais")]
+            public string Country { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            public string City { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            public string State { get; set; }
+
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Numero do Celular")]
             public string PhoneNumber { get; set; }
         }
 
@@ -47,6 +70,11 @@ namespace Memorial3.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Country = user.Country,
+                City = user.City,
+                State = user.State,
                 PhoneNumber = phoneNumber
             };
         }
@@ -62,7 +90,6 @@ namespace Memorial3.Areas.Identity.Pages.Account.Manage
             await LoadAsync(user);
             return Page();
         }
-
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -88,9 +115,32 @@ namespace Memorial3.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+            if (Input.FirstName != user.FirstName)
+            {
+                user.FirstName = Input.FirstName;
+            }
+            if (Input.LastName != user.LastName)
+            {
+                user.LastName = Input.LastName;
+            }
+            if (Input.City != user.City)
+            {
+                user.City = Input.City;
+            }
+            if (Input.Country != user.Country)
+            {
+                user.Country = Input.Country;
+            }
+            if (Input.State != user.State)
+                {
+                    user.State = Input.State;
+                }
+                await _userManager.UpdateAsync(user);
+
+                await _signInManager.RefreshSignInAsync(user);
+                StatusMessage = "Your profile has been updated";
+               
+               return RedirectToPage();
+            }
         }
     }
-}
