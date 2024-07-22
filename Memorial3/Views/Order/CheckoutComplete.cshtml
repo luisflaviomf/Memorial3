@@ -1,0 +1,46 @@
+﻿@model Memorial3.Models.Order
+
+<h1>Obrigado pela compra!</h1>
+
+<h5 class="mt-5">Order Id: @Model.Id</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Memorial</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderItems)
+            {
+                var itemTotal = item.Memorial.Id * item.Quantity;
+                <tr>
+                    <td>
+                        <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@item.Id"><img src="@item.Memorial.MemorialPictureURL" style="height: 4em" /></a>
+                    </td>
+                    <td>
+                        <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@item.Id">@item.Memorial.Name</a>
+                    </td>
+                    <td>
+                        @itemTotal.ToString("c")
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+        <td></td>
+        <td class="text-right">
+            <strong>Total: </strong>
+        <td>
+            <strong>@Model?.OrderTotal.ToString("c")</strong>
+        </td>
+        </td>
+        <td></td>
+        <td></td>
+        </tfoot>
+    </table>

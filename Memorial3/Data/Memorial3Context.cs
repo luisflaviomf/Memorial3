@@ -16,5 +16,7 @@ namespace Memorial3.Data
 
         public DbSet<Memorial> Memorial { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }
