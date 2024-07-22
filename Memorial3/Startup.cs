@@ -28,9 +28,12 @@ namespace Memorial3
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddDbContext<Memorial3Context>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Memorial3Context")));
+
+            services.AddDefaultIdentity<DefaultUser>().AddEntityFrameworkStores<Memorial3Context>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<Cart>(sp => Cart.GetCart(sp));
@@ -62,6 +65,7 @@ namespace Memorial3
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSession();
@@ -71,6 +75,7 @@ namespace Memorial3
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

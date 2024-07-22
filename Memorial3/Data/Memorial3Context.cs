@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Memorial3.Models;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace Memorial3.Data
 {
-    public class Memorial3Context : DbContext
+    public class Memorial3Context : IdentityDbContext<DefaultUser>
     {
         public Memorial3Context (DbContextOptions<Memorial3Context> options)
             : base(options)
