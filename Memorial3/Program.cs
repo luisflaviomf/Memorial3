@@ -23,7 +23,8 @@ namespace Memorial3
 
                 try
                 {
-                    SeedData.Initialize(services);
+                    UserRoleInitializer.InitializeAsync(services).Wait();
+                    //SeedData.Initialize(services);
                 }
                 catch (Exception ex)
                 {
