@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Memorial3.Data;
 using Memorial3.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Memorial3.Controllers
 {
+    
     public class MemorialsController : Controller
     {
         private readonly Memorial3Context _context;
@@ -42,7 +44,7 @@ namespace Memorial3.Controllers
 
             return View(memorial);
         }
-
+        
         // GET: Memorials/Create
         public IActionResult Create()
         {

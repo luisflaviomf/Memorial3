@@ -2,9 +2,11 @@
 using Memorial3.Models;
 using Memorial3.Data;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Memorial3.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly Memorial3Context _context;
