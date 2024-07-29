@@ -2,80 +2,119 @@
 
 @{
     ViewData["Title"] = "Details";
+    // Função para calcular a idade
+   
 }
 
-<h1>Details</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
 
-<div class="row">
-    <div class="col-5">
+    <style>
+        .image-container {
+            width: 300px; /* Largura fixa */
+            height: 500px; /* Altura fixa */
+            overflow: hidden; /* Esconde partes da imagem que não cabem no contêiner */
+            position: relative; /* Para posicionamento relativo da imagem */
+        }
 
-        <div>
-            <h4>Memorial</h4>
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.Name)
-                </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
-                <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.Historia)
-                </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Historia)
-                </dd>
-                <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.DataNascimento)
-                </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.DataNascimento)
-                </dd>
-                <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.DataFalecimento)
-                </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.DataFalecimento)
-                </dd>
-                <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.Formacao)
-                </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Formacao)
-                </dd>
-                <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.Religiao)
-                </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Religiao)
-                </dd>
-                <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.Hobbies)
-                </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Hobbies)
-                </dd>
-                <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.Coletivo)
-                </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Coletivo)
-                </dd>
-            </dl>
-        </div>
-        <div>
-            <a asp-action="" asp-route-id="@Model.Id" class="btn btn-primary store-btn float-right mr-5">
-                <i class="fas fa-edit"></i> Editar
-            </a>
-            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-primary store-btn float-right mr-5">
-                <i class="fas fa-edit"></i> Add
-            </a>
-            <a asp-action="index" class="btn btn-warning">
-                <i class="fas fa-arrow-left"></i> Voltar pra lista
-            </a>
-        </div>
-    </divc>
-    <div class="col-4">
-        <img src="@Model.MemorialPictureURL" class="w-100" />
-    </div>
+            .image-container img {
+                width: 100%; /* Faz a imagem preencher a largura do contêiner */
+                height: 100%; /* Faz a imagem preencher a altura do contêiner */
+                object-fit: cover; /* Corta a imagem para preencher o contêiner */
+                position: absolute; /* Para centralizar a imagem dentro do contêiner */
+                top: 0; /* Alinha a imagem no topo do contêiner */
+                left: 0; /* Alinha a imagem à esquerda do contêiner */
+            }
+    </style>
+<title>about me - Bootdey.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/css/Details.css">
+</head>
+<body>
+<section class="section about-section gray-bg" id="about">
+<div class="container">
+<div class="row align-items-center flex-row-reverse">
+<div class="col-lg-6">
+<div class="about-text go-to">
+                        <h3 class="dark-color">@Html.DisplayFor(model => model.Name) <img src="~/img/laco.png" width="8%"/></h3>
+                        <p>@Html.DisplayFor(model => model.Historia)</p>
+<div class="row about-list">
+<div class="col-md-6">
+<div class="media">
+<label>Nascimento</label>
+                                    <p style="margin-left: 5px;">@Html.DisplayFor(model => model.DataNascimento)</p>
 </div>
+<div class="media">
+<label>Falecimento</label>
+                                    <p style="margin-left: 5px;">@Html.DisplayFor(model => model.DataFalecimento)</p>
+</div>
+<div class="media">
+<label>Formação</label>
+<p>@Html.DisplayFor(model => model.Formacao)</p>
+</div>
+<div class="media">
+<label>Religião</label>
+<p>@Html.DisplayFor(model => model.Religiao)</p>
+</div>
+</div>
+<div class="col-md-6">
+<div class="media">
+<label>Hobbies</label>
+<p>@Html.DisplayFor(model => model.Hobbies)</p>
+</div>
+<div class="media">
+<label>Coletivo</label>
+<p>@Html.DisplayFor(model => model.Coletivo)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-6">
+                    <div class="image-container" style="margin-left:60px;">
+                        <img src="@Model.MemorialPictureURL" alt="Memorial Image" />
+                    </div>
+</div>
+</div>
+<div class="counter">
+<div class="row">
+<div class="col-6 col-lg-3">
+<div class="count-data text-center">
+<h6 class="count h2" data-to="500" data-speed="500">500</h6>
+<p class="m-0px font-w-600">BOTÃO 1</p>
+</div>
+</div>
+<div class="col-6 col-lg-3">
+<div class="count-data text-center">
+<h6 class="count h2" data-to="150" data-speed="150">150</h6>
+<p class="m-0px font-w-600">Project Completed</p>
+</div>
+</div>
+<div class="col-6 col-lg-3">
+<div class="count-data text-center">
+<h6 class="count h2" data-to="850" data-speed="850">850</h6>
+<p class="m-0px font-w-600">Photo Capture</p>
+</div>
+</div>
+<div class="col-6 col-lg-3">
+<div class="count-data text-center">
+<h6 class="count h2" data-to="190" data-speed="190">190</h6>
+<p class="m-0px font-w-600">Telephonic Talk</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>

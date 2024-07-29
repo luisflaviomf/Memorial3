@@ -24,12 +24,13 @@
         <div class="col-3">
             <div class="card my-2 store-card">
                 <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@memorial.Id">
-                    <img src="@memorial.MemorialPictureURL" class="card-img-top card-img-custom"/>
+                    <img src="@memorial.MemorialPictureURL" class="card-img-top card-img-custom" />
                     <div class="card-body" style="height: 6em;">
                         <h5 class="mb-3">@memorial.Name</h5>
+                        <span class="card-text" style="margin-top:-5px; font-size:13px;"><b>Data de Falecimento:</b> @memorial.DataFalecimento.ToString("dd/MM/yyyy")</span><br>
+                        <span class="card-text" style="font-size:13px;"><b>Coletivo:</b> <br>@memorial.Coletivo</span>
                     </div>
                     <div class="card-body">
-                        <span class="card-text">@memorial.DataFalecimento</span>
                         <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@memorial.Id" class="btn btn-primary float-right store-btn"><i class="fa-solid fa-info"></i></a>
                     </div>
                 </a>

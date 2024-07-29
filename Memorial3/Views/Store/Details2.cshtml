@@ -1,0 +1,81 @@
+﻿@model Memorial3.Models.Memorial
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div class="row">
+    <div class="col-5">
+
+        <div>
+            <h4>Memorial</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Historia)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Historia)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.DataNascimento)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.DataNascimento)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.DataFalecimento)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.DataFalecimento)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Formacao)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Formacao)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Religiao)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Religiao)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Hobbies)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Hobbies)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Coletivo)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Coletivo)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <a asp-action="" asp-route-id="@Model.Id" class="btn btn-primary store-btn float-right mr-5">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-primary store-btn float-right mr-5">
+                <i class="fas fa-edit"></i> Add
+            </a>
+            <a asp-action="index" class="btn btn-warning">
+                <i class="fas fa-arrow-left"></i> Voltar pra lista
+            </a>
+        </div>
+    </divc>
+    <div class="col-4">
+        <img src="@Model.MemorialPictureURL" class="w-100" />
+    </div>
+</div>
