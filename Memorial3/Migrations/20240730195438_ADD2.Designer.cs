@@ -4,14 +4,16 @@ using Memorial3.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Memorial3.Migrations
 {
     [DbContext(typeof(Memorial3Context))]
-    partial class Memorial3ContextModelSnapshot : ModelSnapshot
+    [Migration("20240730195438_ADD2")]
+    partial class ADD2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

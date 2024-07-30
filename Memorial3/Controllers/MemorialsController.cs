@@ -142,10 +142,21 @@ namespace Memorial3.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var memorial = await _context.Memorial.FindAsync(id);
+
+            if (memorial == null)
+            {
+                return NotFound();
+            }
+
+            // Excluir registros dependentes em CartItems
+            var cartItems = _context.CartItems.Where(ci => ci.Memorial.Id == id);
+            _context.CartItems.RemoveRange(cartItems);
+
             _context.Memorial.Remove(memorial);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool MemorialExists(int id)
         {
