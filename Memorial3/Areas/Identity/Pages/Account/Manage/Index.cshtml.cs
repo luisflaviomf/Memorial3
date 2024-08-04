@@ -40,12 +40,12 @@ namespace Memorial3.Areas.Identity.Pages.Account.Manage
 
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Ultimo Nome")]
+            [Display(Name = "Último Nome")]
             public string LastName { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Pais")]
+            [Display(Name = "País")]
             public string Country { get; set; }
 
             [Required]
@@ -57,7 +57,7 @@ namespace Memorial3.Areas.Identity.Pages.Account.Manage
             public string State { get; set; }
 
             [Phone]
-            [Display(Name = "Numero do Celular")]
+            [Display(Name = "Número do Celular")]
             public string PhoneNumber { get; set; }
         }
 
@@ -84,18 +84,19 @@ namespace Memorial3.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Não foi possível carregar o usuário com ID '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadAsync(user);
             return Page();
         }
+
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Não foi possível carregar o usuário com ID '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -110,7 +111,7 @@ namespace Memorial3.Areas.Identity.Pages.Account.Manage
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Erro inesperado ao tentar definir o número de celular.";
                     return RedirectToPage();
                 }
             }
@@ -132,15 +133,16 @@ namespace Memorial3.Areas.Identity.Pages.Account.Manage
                 user.Country = Input.Country;
             }
             if (Input.State != user.State)
-                {
-                    user.State = Input.State;
-                }
-                await _userManager.UpdateAsync(user);
-
-                await _signInManager.RefreshSignInAsync(user);
-                StatusMessage = "Your profile has been updated";
-               
-               return RedirectToPage();
+            {
+                user.State = Input.State;
             }
+
+            await _userManager.UpdateAsync(user);
+
+            await _signInManager.RefreshSignInAsync(user);
+            StatusMessage = "Seu perfil foi atualizado.";
+
+            return RedirectToPage();
         }
     }
+}

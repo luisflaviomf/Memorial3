@@ -4,7 +4,7 @@
     ViewData["Title"] = "Adicionar Comentário";
 }
 
-<h2>Comentários</h2>
+<h2>Deixe uma homenagem</h2>
 
 <form asp-action="Create" method="post">
     <div class="form-group">
@@ -15,7 +15,7 @@
     <button type="submit" class="btn btn-primary">Adicionar Comentário</button>
 </form>
 
-<h3>Comentários Anteriores</h3>
+<h3>Homenagens deixadas</h3>
 @foreach (var comment in Model.Comments)
 {
     <div class="comment">

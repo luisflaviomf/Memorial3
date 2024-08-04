@@ -8,34 +8,71 @@
     <link rel="stylesheet" href="~/lib//fontawesome/css/all.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/myCss.css" />
+    <style>
+        .button3 {
+            background-color: #6a0dad; /* Cor roxa */
+            color: white; /* Cor do texto */
+            border: none; /* Remover bordas padrão */
+            padding: 10px 20px; /* Espaçamento interno do botão */
+            font-size: 16px; /* Tamanho da fonte */
+            font-weight: bold; /* Fonte em negrito */
+            border-radius: 5px; /* Bordas arredondadas */
+            cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar um efeito 3D */
+            transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+        }
+
+        .button3:hover {
+            background-color: #5a0cad; /* Cor roxa mais escura ao passar o mouse */
+            transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+                color: white; /* Garantir que o texto permaneça branco ao passar o mouse */
+        }
+
+        .button3:active {
+                background-color: #4a0bad; /* Cor roxa ainda mais escura ao clicar */
+                transform: translateY(0); /* Efeito de clique */
+                color: white; /* Garantir que o texto permaneça branco ao passar o mouse */
+            }
+
+        .navbar-logo {
+            height: 120px; /* Ajuste a altura da logo conforme necessário */
+            width: auto; /* Manter a proporção da logo */
+        }
+
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 button3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Store" asp-action="Index">Memorial3</a>
+                <img src="~/img/logo.png" alt="Memorial3 Logo" class="navbar-logo">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Store" asp-action="Index">Home</a>
+                        <li class="nav-item button3">
+                            <a class="nav-link float-right" style="color: white;" asp-area="" asp-controller="Store" asp-action="Index">Página inicial</a>
+                        </li>
+                        <li class="nav-item button3">
+                            <a class="nav-link float-right" style="color: white;" asp-area="" asp-controller="Cart" asp-action="Index"><i class="fa-solid fa-user-group"></i> Meu memoriais</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Memorials" asp-action="Index">Memoriais</a>
+                            <li class="nav-item button3">
+                                <a class="nav-link float-right" style="color: white;" asp-area="" asp-controller="Memorials" asp-action="Index">Memoriais</a>
                             </li>
                         }
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="ListAllRoles">Roles</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item button3">
+                                <a class="nav-link float-right" style="color: white;" asp-area="" asp-controller="Admin" asp-action="ListAllRoles">Roles</a>
                             </li>
+                        }
                     </ul>
-
+                    
                     <partial name="_LoginPartial" />
-                    <a class="nav-link text-dark float-right" asp-area="" asp-controller="Cart" asp-action="Index"><i class="fa-solid fa-user-group"></i></a>
                 </div>
             </div>
         </nav>

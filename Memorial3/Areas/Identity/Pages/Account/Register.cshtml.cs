@@ -62,7 +62,7 @@ namespace Memorial3.Areas.Identity.Pages.Account
 
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Pais")]
+            [Display(Name = "País")]
             public string Country { get; set; }
 
             [Required]
@@ -76,14 +76,14 @@ namespace Memorial3.Areas.Identity.Pages.Account
             public string City { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "A {0} deve ter pelo menos {2} e no máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Senha")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirme sua senha")]
+            [Compare("Password", ErrorMessage = "A senha e a senha de confirmação não coincidem.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -99,7 +99,8 @@ namespace Memorial3.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new DefaultUser { 
+                var user = new DefaultUser
+                {
                     UserName = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
@@ -111,7 +112,7 @@ namespace Memorial3.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Usuário criou uma nova conta com senha.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -121,8 +122,8 @@ namespace Memorial3.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirme seu email",
+                        $"Por favor, confirme sua conta <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicando aqui</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -140,7 +141,7 @@ namespace Memorial3.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // Se chegamos aqui, algo falhou, redisplay do formulário
             return Page();
         }
     }

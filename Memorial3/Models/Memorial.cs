@@ -12,11 +12,11 @@ namespace Memorial3.Models
         [Required]
         public string Historia { get; set; }
         [DataType(DataType.Date),
-            Display(Name = "Data de Falescimento")]
+            Display(Name = "Data de Nascimento ")]
         public DateTime DataNascimento { get; set; }
         [Required,
             DataType(DataType.Date),
-            Display(Name = "Data de Falescimento")]
+            Display(Name = "Data de Falecimento")]
         public DateTime DataFalecimento { get; set; }
 
 

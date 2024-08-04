@@ -48,10 +48,11 @@ namespace Memorial3.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
+            [Display(Name = "Senha")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Lembrar da minha conta")]
             public bool RememberMe { get; set; }
         }
 

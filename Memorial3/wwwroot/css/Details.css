@@ -139,3 +139,16 @@ mark {
 
 .dark-color {
     color: #20247b;
+}
+.btn-purple {
+    background-color: #7A288A; /* cor de fundo roxa */
+    color: #fff; /* cor do texto branca */
+    padding: 10px 20px; /* espaçamento interno */
+    border: none; /* sem borda */
+    border-radius: 5px; /* borda arredondada */
+    cursor: pointer; /* cursor em forma de mão */
+}
+
+.btn-purple:hover {
+    background-color: #5C0011; /* cor de fundo roxa mais escura ao passar o mouse */
+}

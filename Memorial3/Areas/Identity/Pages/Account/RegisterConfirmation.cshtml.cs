@@ -38,11 +38,11 @@ namespace Memorial3.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return NotFound($"Unable to load user with email '{email}'.");
+                return NotFound($"Não foi possível carregar o usuário com o email '{email}'.");
             }
 
             Email = email;
-            // Once you add a real email sender, you should remove this code that lets you confirm the account
+            // Quando você adicionar um serviço de email real, remova este código que permite confirmar a conta
             DisplayConfirmAccountLink = true;
             if (DisplayConfirmAccountLink)
             {
