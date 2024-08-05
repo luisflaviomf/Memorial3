@@ -2,15 +2,24 @@
 
 @{
     ViewData["Title"] = "Details";
-    // Função para calcular a idade
-   
+
+    // Função para truncar o texto
+    string Truncate(string text, int maxLength)
+    {
+        if (string.IsNullOrEmpty(text))
+            return text;
+
+        return text.Length <= maxLength ? text : text.Substring(0, maxLength) + "...";
+    }
+
+    // Converter IHtmlContent para string
+    string historiaResumo = Html.Raw(Model.Historia).ToString();
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-
+    <meta charset="utf-8">
     <style>
         .image-container {
             width: 300px; /* Largura fixa */
@@ -27,58 +36,78 @@
                 top: 0; /* Alinha a imagem no topo do contêiner */
                 left: 0; /* Alinha a imagem à esquerda do contêiner */
             }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin: 20px;
+            max-width: 1070px;
+            border: 1px solid #ddd;
+        }
+
+            .card p {
+                color: #000;
+                font-size: 16px;
+                line-height: 1.5;
+            }
     </style>
-<title>about me - Bootdey.com</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="~/css/Details.css">
+    <title>about me - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/Details.css">
 </head>
 <body>
-<section class="section about-section gray-bg" id="about">
-<div class="container">
-<div class="row align-items-center flex-row-reverse">
-<div class="col-lg-6">
-<div class="about-text go-to">
-                        <h3 class="dark-color">@Html.DisplayFor(model => model.Name) <img src="~/img/laco.png" width="8%"/></h3>
-                        <p>@Html.DisplayFor(model => model.Historia)</p>
-<div class="row about-list">
-<div class="col-md-6">
-<div class="media">
-<label>Nascimento</label>
-                                    <p style="margin-left: 5px;">@Html.DisplayFor(model => model.DataNascimento)</p>
-</div>
-<div class="media">
-<label>Falecimento</label>
-                                    <p style="margin-left: 5px;">@Html.DisplayFor(model => model.DataFalecimento)</p>
-</div>
-<div class="media">
-<label>Formação</label>
-<p>@Html.DisplayFor(model => model.Formacao)</p>
-</div>
-<div class="media">
-<label>Religião</label>
-<p>@Html.DisplayFor(model => model.Religiao)</p>
-</div>
-</div>
-<div class="col-md-6">
-<div class="media">
-<label>Hobbies</label>
-<p>@Html.DisplayFor(model => model.Hobbies)</p>
-</div>
-<div class="media">
-<label>Coletivo</label>
-<p>@Html.DisplayFor(model => model.Coletivo)</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="col-lg-6">
+    <section class="section about-section gray-bg" id="about">
+        <div class="container">
+            <div class="row align-items-center flex-row-reverse">
+                <div class="col-lg-6">
+                    <div class="about-text go-to">
+                        <h3 class="dark-color">@Html.DisplayFor(model => model.Name) <img src="~/img/laco.png" width="8%" /></h3>
+                        <!-- Resumo da história -->
+                        <p>@Truncate(historiaResumo, 200)</p> <!-- Ajuste o número 200 conforme necessário -->
+                        <div class="row about-list">
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <label class="media-label ">Nascimento: </label>
+                                    <p class="media-text" style="margin-left:10px;">@Html.DisplayFor(model => model.DataNascimento)</p>
+                                </div>
+                                <div class="media">
+                                    <label class="media-label">Falecimento: </label>
+                                    <p class="media-text" style="margin-left:10px;">@Html.DisplayFor(model => model.DataFalecimento)</p>
+                                </div>
+                                <div class="media">
+                                    <label class="media-label">Formação: </label>
+                                    <p class="media-text" style="margin-left:10px;">@Html.DisplayFor(model => model.Formacao)</p>
+                                </div>
+                                <div class="media">
+                                    <label class="media-label">Religião: </label>
+                                    <p class="media-text" style="margin-left:10px;">@Html.DisplayFor(model => model.Religiao)</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <label class="media-label">Hobbies: </label>
+                                    <p class="media-text" style="margin-left:10px;">@Html.DisplayFor(model => model.Hobbies)</p>
+                                </div>
+                                <div class="media">
+                                    <label class="media-label">Coletivo: </label>
+                                    <p class="media-text" style="margin-left:10px;">@Html.DisplayFor(model => model.Coletivo)</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <a asp-controller="Memorials" asp-action="Edit" asp-route-id="@Model.Id" class="button3"><i class="fa-regular fa-pen-to-square"></i> Editar memorial</a>
+                </div>
+                <div class="col-lg-6">
                     <div class="image-container" style="margin-left:60px;">
                         <img src="@Model.MemorialPictureURL" alt="Memorial Image" />
                     </div>
-</div>
-</div>
+                </div>
+            </div>
             <div class="counter">
                 <div class="row">
                     <div class="col-4 col-lg-4">
@@ -98,9 +127,11 @@
                     </div>
                 </div>
             </div>
-</div>
+        </div>
 <div>
-    <p style="color:black; margin-left:25px; margin-top:15px;">@Model.Historia</p>
+            <p class="card" style="color:black; width:100%; white-space: pre-wrap;">
+                @Html.Raw(Model.Historia)
+            </p>
 </div>
 </section>
 
