@@ -71,24 +71,6 @@ img {
         position: relative;
     }
 
-        .about-list label:after {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 11px;
-            width: 1px;
-            height: 12px;
-            background: #20247b;
-            -moz-transform: rotate(15deg);
-            -o-transform: rotate(15deg);
-            -ms-transform: rotate(15deg);
-            -webkit-transform: rotate(15deg);
-            transform: rotate(15deg);
-            margin: auto;
-            opacity: 0.5;
-        }
-
     .about-list p {
         margin: 0;
         font-size: 15px;
