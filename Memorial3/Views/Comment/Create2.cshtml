@@ -1,0 +1,42 @@
+﻿@model Memorial3.ViewModels.CommentViewModel
+
+@{
+    ViewData["Title"] = "Adicionar Comentário";
+}
+
+<h2>Deixe uma homenagem</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="MemorialId" />
+        <textarea asp-for="Content" id="commentTextArea" class="form-control" placeholder="Digite seu comentário aqui..."></textarea>
+        <button type="button" id="emojiButton" class="btn btn-secondary">😀</button>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Adicionar Comentário</button>
+</form>
+
+<h3>Homenagens deixadas</h3>
+@foreach (var comment in Model.Comments)
+{
+    <div class="comment">
+        <strong>@comment.User.UserName</strong> diz:
+        <p>@comment.Content</p>
+        <small>@comment.DatePosted.ToString("dd/MM/yyyy HH:mm")</small>
+    </div>
+}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.querySelector('#emojiButton');
+        const picker = new EmojiButton();
+
+        picker.on('emoji', emoji => {
+            const textarea = document.querySelector('#commentTextArea');
+            textarea.value += emoji;
+        });
+
+        button.addEventListener('click', () => {
+            picker.togglePicker(button);
+        });
+    });
+</script>

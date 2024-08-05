@@ -1,0 +1,18 @@
+﻿@model Memorial3.ViewModels.EditCommentViewModel
+
+@{
+    ViewData["Title"] = "Editar Comentário";
+}
+
+<h2>Editar Comentário</h2>
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="MemorialId" />
+        <textarea asp-for="Content" id="commentTextArea" class="form-control" placeholder="Digite seu comentário aqui..."></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<a asp-action="Create" asp-route-memorialId="@Model.MemorialId" class="btn btn-secondary">Cancelar</a>

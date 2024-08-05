@@ -5,22 +5,59 @@
 }
 
 <h2>Deixe uma homenagem</h2>
-
+<link href="~/css/comment.css" rel="stylesheet">
 <form asp-action="Create" method="post">
     <div class="form-group">
         <input type="hidden" asp-for="MemorialId" />
-        <textarea asp-for="Content" class="form-control" placeholder="Digite seu comentário aqui..."></textarea>
+        <textarea asp-for="Content" id="commentTextArea" class="form-control" placeholder="Digite seu comentário aqui..."></textarea>
+        <button type="button" id="emojiButton" class="btn btn-secondary">😀</button>
         <span asp-validation-for="Content" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Adicionar Comentário</button>
 </form>
 
 <h3>Homenagens deixadas</h3>
-@foreach (var comment in Model.Comments)
-{
-    <div class="comment">
-        <strong>@comment.User.UserName</strong> diz:
-        <p>@comment.Content</p>
-        <small>@comment.DatePosted.ToString("dd/MM/yyyy HH:mm")</small>
+<div class="container">
+    <div class="row">
+        @foreach (var comment in Model.Comments)
+        {
+            var canEdit = comment.UserId == Model.CurrentUserId || Model.IsAdmin;
+            <div class="col-md-8">
+                <div class="media g-mb-30 media-comment">
+                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+                    <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                        <div class="g-mb-15">
+                            <h5 class="h5 g-color-gray-dark-v1 mb-0">@comment.User.FirstName @comment.User.LastName</h5>
+                            <span class="g-color-gray-dark-v4 g-font-size-12">@comment.DatePosted.ToString("dd/MM/yyyy HH:mm")</span>
+                            @if (canEdit)
+                            {
+                                <a href="@Url.Action("Edit", new { id = comment.Id })" class="btn btn-warning btn-sm">Editar</a>
+                                <form asp-action="Delete" method="post" style="display:inline">
+                                    <input type="hidden" name="id" value="@comment.Id" />
+                                    <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                </form>
+                            }
+                        </div>
+                        <p>@comment.Content</p>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.querySelector('#emojiButton');
+        const picker = new EmojiButton();
+
+        picker.on('emoji', emoji => {
+            const textarea = document.querySelector('#commentTextArea');
+            textarea.value += emoji;
+        });
+
+        button.addEventListener('click', () => {
+            picker.togglePicker(button);
+        });
+    });
+</script>
