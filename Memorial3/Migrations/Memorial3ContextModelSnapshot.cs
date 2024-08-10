@@ -155,6 +155,31 @@ namespace Memorial3.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Memorial3.Models.Media", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MemorialId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MemorialId");
+
+                    b.ToTable("Media");
+                });
+
             modelBuilder.Entity("Memorial3.Models.Memorial", b =>
                 {
                     b.Property<int>("Id")
@@ -403,6 +428,17 @@ namespace Memorial3.Migrations
                     b.Navigation("Memorial");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Memorial3.Models.Media", b =>
+                {
+                    b.HasOne("Memorial3.Models.Memorial", "Memorial")
+                        .WithMany()
+                        .HasForeignKey("MemorialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Memorial");
                 });
 
             modelBuilder.Entity("Memorial3.Models.OrderItem", b =>
