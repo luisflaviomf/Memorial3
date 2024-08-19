@@ -3,7 +3,26 @@
 @{
     ViewData["Title"] = "Adicionar Comentário";
 }
+<div class="counter">
+    <div class="row">
+        <div class="col-4 col-lg-4 button3">
+            <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@Model.MemorialId">
+                <h6 class="count h2" data-to="500" data-speed="500" style="color:white; text-align:center; padding:19px;">História</h6>
+            </a>
+        </div>
+        <div class="col-4 col-lg-4 button3">
+            <a href="@Url.Action("Upload", "Media", new { memorialId = Model.MemorialId })" class="count-data text-center">
+                <h6 class="count h2" data-to="500" data-speed="500" style="color:white; text-align:center; padding:19px;">Memórias</h6>
+            </a>
+        </div>
 
+        <div class="col-4 col-lg-4 button3">
+            <a href="@Url.Action("Create", "Comment", new { memorialId = Model.MemorialId })" class="count-data text-center">
+                <h6 class="count h2" data-to="500" data-speed="500" style="color:white; text-align:center;">Espaço de Homenagens</h6>
+            </a>
+        </div>
+    </div>
+</div>
 <h2>Deixe uma homenagem</h2>
 <link href="~/css/comment.css" rel="stylesheet">
 <form asp-action="Create" method="post">

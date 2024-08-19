@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Memorial3.Data;
 using Memorial3.Models;
 using Memorial3.ViewModels;
@@ -8,70 +6,87 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Memorial3.Controllers
+public class MediaController : Controller
 {
-    public class MediaController : Controller
+    private readonly Memorial3Context _context;
+
+    public MediaController(Memorial3Context context)
     {
-        private readonly Memorial3Context _context;
+        _context = context;
+    }
 
-        public MediaController(Memorial3Context context)
+    // GET: Media/Upload
+    public IActionResult Upload(int memorialId)
+    {
+        var viewModel = new MediaUploadViewModel
         {
-            _context = context;
-        }
+            MemorialId = memorialId,
+            MediaList = _context.Media.Where(m => m.MemorialId == memorialId).ToList()
+        };
+        return View(viewModel);
+    }
 
-        // GET: Media/Upload/5
-        public async Task<IActionResult> Upload(int memorialId)
+    // POST: Media/Upload
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Upload(MediaUploadViewModel model)
+    {
+        if (ModelState.IsValid)
         {
-            var memorial = await _context.Memorial.FindAsync(memorialId);
-            if (memorial == null)
+            if (model.File != null && model.File.Length > 0)
             {
-                return NotFound();
-            }
+                // Defina o caminho para salvar o arquivo
+                var fileName = Path.GetFileName(model.File.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/media", fileName);
 
-            var mediaList = await _context.Media
-                .Where(m => m.MemorialId == memorialId)
-                .ToListAsync();
-
-            var model = new MediaUploadViewModel
-            {
-                MemorialId = memorialId,
-                MediaList = mediaList
-            };
-
-            return View(model);
-        }
-
-        // POST: Media/Upload
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upload(MediaUploadViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                if (model.File != null)
+                // Salve o arquivo
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    var filePath = Path.Combine("wwwroot/media", Path.GetFileName(model.File.FileName));
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await model.File.CopyToAsync(stream);
-                    }
-
-                    var media = new Media
-                    {
-                        MemorialId = model.MemorialId,
-                        FilePath = filePath,
-                        FileType = model.File.ContentType
-                    };
-
-                    _context.Media.Add(media);
-                    await _context.SaveChangesAsync();
-
-                    // Redirect to the same upload page to refresh the media list
-                    return RedirectToAction("Upload", new { memorialId = model.MemorialId });
+                    await model.File.CopyToAsync(stream);
                 }
+
+                // Crie o novo objeto Media
+                var media = new Media
+                {
+                    FilePath = "/media/" + fileName,
+                    FileType = model.MediaName, // Use o nome fornecido pelo usuário
+                    MemorialId = model.MemorialId
+                };
+
+                // Adicione o objeto Media ao contexto
+                _context.Media.Add(media);
+                await _context.SaveChangesAsync();
+
+                // Redirecione para a ação Index com o ID do memorial
+                return RedirectToAction("Upload", new { memorialId = model.MemorialId });
+            }
+        }
+
+        // Se o modelo não for válido, recarregue a view com o modelo atual
+        model.MediaList = _context.Media.Where(m => m.MemorialId == model.MemorialId).ToList();
+        return View(model);
+    }
+
+    // POST: Media/Delete/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id, int memorialId)
+    {
+        var media = await _context.Media.FindAsync(id);
+        if (media != null)
+        {
+            // Remove o arquivo do disco
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/media", Path.GetFileName(media.FilePath));
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
             }
 
-            return View(model);
+            // Remove o objeto Media do contexto
+            _context.Media.Remove(media);
+            await _context.SaveChangesAsync();
         }
+
+        return RedirectToAction("Upload", new { memorialId = memorialId });
     }
 }

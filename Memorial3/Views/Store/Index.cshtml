@@ -12,13 +12,13 @@
         <div class="my-1">
             <input type="text" name="searchString" placeholder="Nome do memorial" class="form-control-sm col-12" />
         </div>
-        <input type="submit" value="Procurar" class="btn btn-primary btn-sm"/>
+        <input type="submit" value="Procurar" class="btn btn-primary btn-sm" />
         <a asp-action="Index" class="btn btn-secondary btn-sm float-right">Limpar</a>
     </div>
 </form>
 
 <div class="row">
-    @foreach(var memorial in Model)
+    @foreach (var memorial in Model)
     {
         <div class="col-3">
             <div class="card my-2 store-card">
@@ -30,10 +30,48 @@
                         <span class="card-text" style="font-size:13px;"><b>Coletivo:</b> <br>@memorial.Coletivo</span>
                     </div>
                     <div class="card-body">
-                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@memorial.Id" class="btn btn-primary float-right store-btn"><i class="fa-solid fa-info"></i></a>
+                        <a id="addToCartBtn-@memorial.Id" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@memorial.Id" class="btn btn-primary float-right store-btn">
+                            <i class="fa-solid fa-info"></i>
+                        </a>
                     </div>
                 </a>
             </div>
         </div>
     }
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('a[id^="addToCartBtn-"]').click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+                var url = $this.attr('href');
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    success: function (response) {
+                        // Se o item for adicionado ao carrinho com sucesso, altere a aparência do botão
+                        if ($this.hasClass('btn-primary')) {
+                            $this.removeClass('btn-primary').addClass('btn-success');
+                            $this.find('i').removeClass('fa-info').addClass('fa-check');
+                        } else {
+                            $this.removeClass('btn-success').addClass('btn-primary');
+                            $this.find('i').removeClass('fa-check').addClass('fa-info');
+                        }
+                    },
+                    error: function () {
+                        // Aqui você pode lidar com erros, como exibir uma mensagem
+                        alert('Erro ao adicionar ao carrinho.');
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+

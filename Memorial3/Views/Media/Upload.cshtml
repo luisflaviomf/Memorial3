@@ -1,78 +1,69 @@
 ﻿@using System.IO
-
 @model Memorial3.ViewModels.MediaUploadViewModel
 
-<style>
-    .card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .card-img-top {
-        height: 200px;
-        object-fit: cover;
-    }
-</style>
-
-@using (Html.BeginForm("Upload", "Media", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-group">
-        <label asp-for="File" class="control-label"></label>
-        <input asp-for="File" type="file" class="form-control" />
-        <span asp-validation-for="File" class="text-danger"></span>
-    </div>
-    <input type="hidden" asp-for="MemorialId" />
-    <button type="submit" class="btn btn-primary">Upload</button>
+@{
+    ViewData["Title"] = "Upload de Mídia";
 }
 
-<h3>Mídias enviadas</h3>
-<div class="row">
-    @foreach (var media in Model.MediaList)
-    {
-        <div class="col-md-3 mb-3">
-            <div class="card">
-                <img src="@Url.Content("~/media/" + System.IO.Path.GetFileName(media.FilePath))" class="card-img-top" alt="Media Image" />
-                <div class="card-body">
-                    <p class="card-text">@media.FileType</p>
-                </div>
-            </div>
+<div class="counter">
+    <div class="row">
+        <div class="col-4 col-lg-4 button3">
+            <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@Model.MemorialId">
+                <h6 class="count h2" data-to="500" data-speed="500" style="color:white; text-align:center; padding:19px;">História</h6>
+            </a>
         </div>
-    }
-</div>
+        <div class="col-4 col-lg-4 button3">
+            <a href="@Url.Action("Upload", "Media", new { memorialId = Model.MemorialId })" class="count-data text-center">
+                <h6 class="count h2" data-to="500" data-speed="500" style="color:white; text-align:center; padding:19px;">Memórias</h6>
+            </a>
+        </div>
 
-<!-- Modal -->
-<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mediaModalLabel">Imagem</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img id="modalImage" src="" class="img-fluid" alt="Media Image" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            </div>
+        <div class="col-4 col-lg-4 button3">
+            <a href="@Url.Action("Create", "Comment", new { memorialId = Model.MemorialId })" class="count-data text-center">
+                <h6 class="count h2" data-to="500" data-speed="500" style="color:white; text-align:center;">Espaço de Homenagens</h6>
+            </a>
         </div>
     </div>
 </div>
+<div class="container mt-4">
+    <!-- Formulário de Upload -->
+    @using (Html.BeginForm("Upload", "Media", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
 
-<!-- JavaScript -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+        <div class="form-group">
+            <label asp-for="File" class="form-label">Selecionar Arquivo</label>
+            <input asp-for="File" type="file" class="form-control" />
+            <span asp-validation-for="File" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="MediaName" class="form-label">Dê um nome para a memória.</label>
+            <input asp-for="MediaName" class="form-control" />
+            <span asp-validation-for="MediaName" class="text-danger"></span>
+        </div>
+        <input type="hidden" asp-for="MemorialId" />
+        <button type="submit" class="btn btn-primary button3">Upload</button>
+    }
 
-<script>
-    $(document).ready(function () {
-        $('.card-img-top').click(function () {
-            var imgSrc = $(this).attr('src');
-            $('#modalImage').attr('src', imgSrc);
-            $('#mediaModal').modal('show');
-        });
-    });
-</script>
+    <h3 class="mt-4">Memórias Enviadas</h3>
+    <div class="row">
+        @foreach (var media in Model.MediaList)
+        {
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <img src="@Url.Content("~/media/" + System.IO.Path.GetFileName(media.FilePath))" class="card-img-top" alt="Media Image" />
+                    <div class="card-body">
+                        <h5 class="card-title">@media.FileType</h5>
+                        <!-- Formulário para exclusão -->
+                        <form asp-action="Delete" asp-controller="Media" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@media.Id" />
+                            <input type="hidden" name="memorialId" value="@Model.MemorialId" />
+                            <button type="submit" class="btn btn-danger btn-sm">Deletar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
