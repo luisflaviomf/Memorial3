@@ -24,14 +24,14 @@
             <div class="card my-2 store-card">
                 <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@memorial.Id">
                     <img src="@memorial.MemorialPictureURL" class="card-img-top card-img-custom" />
-                    <div class="card-body" style="height: 9em;">
+                    <div class="card-body" style="height: 10em;">
                         <h5 class="mb-3">@memorial.Name <img src="~/img/laco.png" width="8%" /></h5>
                         <span class="card-text" style="margin-top:-5px; font-size:13px;"><b>Data de Falecimento:</b> @memorial.DataFalecimento.ToString("dd/MM/yyyy")</span><br>
                         <span class="card-text" style="font-size:13px;"><b>Coletivo:</b> <br>@memorial.Coletivo</span>
                     </div>
                     <div class="card-body">
                         <a id="addToCartBtn-@memorial.Id" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@memorial.Id" class="btn btn-primary float-right store-btn">
-                            <i class="fa-solid fa-info"></i>
+                            <i class="fa-solid fa-user-plus"></i> Adicionar
                         </a>
                     </div>
                 </a>
@@ -64,7 +64,7 @@
                     },
                     error: function () {
                         // Aqui você pode lidar com erros, como exibir uma mensagem
-                        alert('Erro ao adicionar ao carrinho.');
+                        alert('Você precisa estar logado para adicionar aos seus memoriais.');
                     }
                 });
             });

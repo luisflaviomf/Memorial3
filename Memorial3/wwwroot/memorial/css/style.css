@@ -1789,7 +1789,31 @@ margin-top: 90px;
 .contact-page .form-control  { margin-bottom: 20px;} 
  
 /** slider arrow **/
- 
+.button3 {
+    background-color: #a02248; /* Cor roxa */
+    color: white; /* Cor do texto */
+    border: none; /* Remover bordas padrão */
+    padding: 5px 10px; /* Espaçamento interno do botão */
+    font-size: 14px; /* Tamanho da fonte */
+    font-weight: bold; /* Fonte em negrito */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar um efeito 3D */
+    transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+}
+
+    .button3:hover {
+        background-color: #5a0cad; /* Cor roxa mais escura ao passar o mouse */
+        transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+        color: white; /* Garantir que o texto permaneça branco ao passar o mouse */
+    }
+
+    .button3:active {
+        background-color: #4a0bad; /* Cor roxa ainda mais escura ao clicar */
+        transform: translateY(0); /* Efeito de clique */
+        color: white; /* Garantir que o texto permaneça branco ao passar o mouse */
+    }
+
 
 
 

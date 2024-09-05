@@ -31,3 +31,42 @@
     background-color: forestgreen;
     border: 1px solid forestgreen;
 }
+
+.tooltip-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 5px;
+    position: relative;
+}
+
+    .tooltip-icon:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        background: #333;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        white-space: normal; /* Permite a quebra de linha */
+        font-size: 14px;
+        top: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        display: block;
+        max-width: 450px; /* Define um tamanho máximo para a caixa */
+        min-width: 350px; /* Define um tamanho mínimo para a caixa */
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        word-wrap: break-word; /* Quebra palavras longas se necessário */
+        text-align: justify; /* Justifica o texto dentro da caixa */
+    }
+
+
+
