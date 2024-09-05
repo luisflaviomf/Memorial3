@@ -62,7 +62,9 @@ namespace Memorial3.Controllers
             {
                 _context.Add(memorial);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Store");
+
+
             }
             return View(memorial);
         }
@@ -113,7 +115,7 @@ namespace Memorial3.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Store");
             }
             return View(memorial);
         }
@@ -154,7 +156,7 @@ namespace Memorial3.Controllers
 
             _context.Memorial.Remove(memorial);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Store");
         }
 
 

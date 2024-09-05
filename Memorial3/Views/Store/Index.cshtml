@@ -10,7 +10,7 @@
     <div>
         Procurar
         <div class="my-1">
-            <input type="text" name="searchString" placeholder="Nome do memorial" class="form-control-sm col-12" />
+            <input type="text" name="searchString" placeholder="Memorial ou Coletivo" class="form-control-sm col-12" />
         </div>
         <input type="submit" value="Procurar" class="btn btn-primary btn-sm" />
         <a asp-action="Index" class="btn btn-secondary btn-sm float-right">Limpar</a>
@@ -24,7 +24,7 @@
             <div class="card my-2 store-card">
                 <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@memorial.Id">
                     <img src="@memorial.MemorialPictureURL" class="card-img-top card-img-custom" />
-                    <div class="card-body" style="height: 6em;">
+                    <div class="card-body" style="height: 9em;">
                         <h5 class="mb-3">@memorial.Name <img src="~/img/laco.png" width="8%" /></h5>
                         <span class="card-text" style="margin-top:-5px; font-size:13px;"><b>Data de Falecimento:</b> @memorial.DataFalecimento.ToString("dd/MM/yyyy")</span><br>
                         <span class="card-text" style="font-size:13px;"><b>Coletivo:</b> <br>@memorial.Coletivo</span>

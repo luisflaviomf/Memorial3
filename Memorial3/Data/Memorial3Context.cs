@@ -12,6 +12,7 @@ namespace Memorial3.Data
         public Memorial3Context (DbContextOptions<Memorial3Context> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public DbSet<Memorial> Memorial { get; set; }
